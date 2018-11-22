@@ -1,0 +1,14 @@
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\bin\Debug\netcoreapp2.1\LoveLife.API.deps.json
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\bin\Debug\netcoreapp2.1\LoveLife.API.runtimeconfig.json
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\bin\Debug\netcoreapp2.1\LoveLife.API.runtimeconfig.dev.json
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\bin\Debug\netcoreapp2.1\LoveLife.API.dll
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\bin\Debug\netcoreapp2.1\LoveLife.API.pdb
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\obj\Debug\netcoreapp2.1\LoveLife.API.csprojAssemblyReference.cache
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\obj\Debug\netcoreapp2.1\LoveLife.API.csproj.CoreCompileInputs.cache
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\obj\Debug\netcoreapp2.1\LoveLife.API.RazorAssemblyInfo.cache
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\obj\Debug\netcoreapp2.1\LoveLife.API.RazorAssemblyInfo.cs
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\obj\Debug\netcoreapp2.1\LoveLife.API.AssemblyInfoInputs.cache
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\obj\Debug\netcoreapp2.1\LoveLife.API.AssemblyInfo.cs
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\obj\Debug\netcoreapp2.1\LoveLife.API.RazorTargetAssemblyInfo.cache
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\obj\Debug\netcoreapp2.1\LoveLife.API.dll
+C:\Users\TiisetsoM\LoveLife\LoveLife.API\obj\Debug\netcoreapp2.1\LoveLife.API.pdb
