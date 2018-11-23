@@ -7,6 +7,8 @@ using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace LoveLife.API.Controllers
 {
@@ -22,7 +24,7 @@ namespace LoveLife.API.Controllers
             _Repo = repo;
 
         }
-        [HttpPost("register")]
+          [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForResisterDto)
         {
             //validate request
@@ -45,7 +47,7 @@ namespace LoveLife.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = await _Repo.Login(userForLoginDto.username, userForLoginDto.password);
+            var userFromRepo = await _Repo.Login(userForLoginDto.username.ToLower(), userForLoginDto.password);
 
             if (userFromRepo == null)
                 return Unauthorized();
@@ -56,8 +58,25 @@ namespace LoveLife.API.Controllers
                new Claim(ClaimTypes.Name, userFromRepo.UserName)
             };
 
-            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes() )
-            return StatusCode(201);
+            var key = new SymmetricSecurityKey(Encoding.UTF8
+            .GetBytes(_Iconfig.GetSection("AppSettings:Token").Value));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var tokenDesriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = creds
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDesriptor);
+
+
+            return Ok(new{
+                token = tokenHandler.WriteToken(token)
+            });
         }
     }
 }

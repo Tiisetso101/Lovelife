@@ -6,9 +6,11 @@ using LoveLife.API.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LoveLife.API.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace loveLife.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -30,6 +32,7 @@ namespace loveLife.API.Controllers
         }
 
         // GET api/values/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetValue(int id)
         {
