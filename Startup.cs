@@ -16,6 +16,10 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Diagnostics;
+using System.Net;
+using LoveLife.API.Controllers.Helpers;
 
 namespace loveLife.API
 {
@@ -56,8 +60,19 @@ namespace loveLife.API
                 app.UseDeveloperExceptionPage();
             }
             else
-
             {
+                app.UseExceptionHandler(builder => {
+                    builder.Run(async context => {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        var error  = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                          context.Response.ApplicationError(error.Error.Message);
+                          await  context.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
+                });
+
                 //app.UseHsts();
             }
 
