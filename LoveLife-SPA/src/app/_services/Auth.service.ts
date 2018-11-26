@@ -18,7 +18,8 @@ login(model: any) {
      const user = response;
      if (user) {
        localStorage.setItem('token' , user.token);
-       this.decodedToken = user.token;
+       // this.decodedToken = this.jwtHelper.decodedToken(user.token);
+       this.decodedToken = this.jwtHelper.decodeToken(user.token);
        console.log(this.decodedToken);
      }
    })
@@ -30,7 +31,7 @@ register(model: any) {
  }
 
  loggedIn() {
-  const token = localStorage.getItem('token');
+ const token = localStorage.getItem('token');
   return !this.jwtHelper.isTokenExpired(token);
  }
 
