@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
 using LoveLife.API.Controllers.Helpers;
+using AutoMapper;
 
 namespace loveLife.API
 {
@@ -42,6 +43,7 @@ namespace loveLife.API
                           = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                     });
              services.AddCors();
+             services.AddAutoMapper();
              services.AddTransient<Seed>();
              services.AddScoped<IAuthRepository, AuthRepository>();
              services.AddScoped<IDatingRepository, DatingRepository>();

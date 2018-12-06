@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.4"/>
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.1.1"/>
-    <!-- <PackageReference Include="Microsoft.Owin.Cors" Version="4.0.0"/>-->
+    <!-- <PackageReference Include="AutoMapper" Version="8.0.0"/> -->
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0"/>
   </ItemGroup>
 </Project>
