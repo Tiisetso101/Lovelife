@@ -36,9 +36,15 @@ namespace loveLife.API
         public void ConfigureServices(IServiceCollection services)
         {
              services.AddDbContext<DataContext>(x=> x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                    .AddJsonOptions(option => {
+                        option.SerializerSettings.ReferenceLoopHandling 
+                          = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    });
              services.AddCors();
+             services.AddTransient<Seed>();
              services.AddScoped<IAuthRepository, AuthRepository>();
+             services.AddScoped<IDatingRepository, DatingRepository>();
              services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => {
                         options.TokenValidationParameters = new TokenValidationParameters
@@ -53,7 +59,7 @@ namespace loveLife.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Seed seeder)
         {
             if (env.IsDevelopment())
             {
@@ -77,6 +83,7 @@ namespace loveLife.API
             }
 
             app.UseHttpsRedirection();
+          //  seeder.SeedUsers();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseMvc();
