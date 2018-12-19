@@ -20,6 +20,7 @@ namespace LoveLife.API.Controllers.Helpers
                 opt.MapFrom(d => d.DateOfBirth.CalculateAge());
             });
             CreateMap<Photos, PhotosForDetailedDto>();
+            CreateMap<UserForUpdateDto, User>();
         }
     }
 }
