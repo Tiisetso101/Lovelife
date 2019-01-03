@@ -23,6 +23,12 @@ namespace LoveLife.API.Data
             _context.Remove(entity);
         }
 
+        public async Task<Photos> GetPhoto(int id)
+        {
+           var photo = await _context.Photo.FirstOrDefaultAsync(p => p.Id == id);
+           return photo;
+        }
+
         public async Task<User> GetUser(int id)
         {
            var user = await _context.Users.Include(p => p.Photo).FirstOrDefaultAsync(u => u.Id == id);

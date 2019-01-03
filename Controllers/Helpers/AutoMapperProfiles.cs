@@ -21,6 +21,8 @@ namespace LoveLife.API.Controllers.Helpers
             });
             CreateMap<Photos, PhotosForDetailedDto>();
             CreateMap<UserForUpdateDto, User>();
+            CreateMap<Photos, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto, Photos>();
         }
     }
 }
