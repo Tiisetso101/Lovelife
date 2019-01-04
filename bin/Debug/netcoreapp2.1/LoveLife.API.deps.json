@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "00084921f89ecc49f84f12e2860773faf232ca02"
+    "signature": "36d727865218dbdd3aea35e784ce2a04c63d799f"
   },
   "compilationOptions": {
     "defines": [
@@ -25,6 +25,7 @@
       "LoveLife.API/1.0.0": {
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.0.0",
+          "CloudinaryDotNet": "1.6.0",
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.Cors": "2.1.1",
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
@@ -66,6 +67,20 @@
         },
         "compile": {
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        }
+      },
+      "CloudinaryDotNet/1.6.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "runtime": {
+          "lib/netstandard1.3/CloudinaryDotNet.dll": {
+            "assemblyVersion": "1.6.0.0",
+            "fileVersion": "1.6.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.3/CloudinaryDotNet.dll": {}
         }
       },
       "Microsoft.AspNetCore.Razor.Design/2.1.2": {},
@@ -3382,6 +3397,13 @@
       "sha512": "sha512-EHxmLh6OuTuiGU3U+pHhNHwWOq1juK+Wbvr2n7Oj8/L819+DCnr7dtVtIGmBYHrle6foukEXqT5rcbRS9+CFyA==",
       "path": "automapper.extensions.microsoft.dependencyinjection/6.0.0",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.6.0.0.nupkg.sha512"
+    },
+    "CloudinaryDotNet/1.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HKROJitzDyQ6X8sGP4KoThLU0UKHaPcR3Rr9ahMyF4WgwtIMC/UAivn7328tJGR7MgXZ+DOXVj+ecm2thHC1xw==",
+      "path": "cloudinarydotnet/1.6.0",
+      "hashPath": "cloudinarydotnet.1.6.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Design/2.1.2": {
       "type": "package",
