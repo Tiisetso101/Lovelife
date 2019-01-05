@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using LoveLife.API.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace LoveLife.API.Data
 {
@@ -27,6 +28,12 @@ namespace LoveLife.API.Data
         {
            var photo = await _context.Photo.FirstOrDefaultAsync(p => p.Id == id);
            return photo;
+        }
+
+        public async Task<Photos> GetMainPhotoForUser(int UserId)
+        {
+           return  = await _context.Photo.Where(u = UserId).FirstOrDefaultAsync(p => p.IsMain);
+          // return photo;
         }
 
         public async Task<User> GetUser(int id)
