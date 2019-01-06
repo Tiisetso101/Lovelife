@@ -88,16 +88,15 @@ namespace LoveLife.API.Controllers
             }
              return BadRequest("Could not save photo!");
         }
-    }
     [HttpPost("{id}/setMain")]
-    public async Task <IActionResult> setMainPhoto(int userId, int id) 
+    public async Task<IActionResult> SetMainPhoto(int userId, int id) 
     {
         if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) )
             return Unauthorized();
 
         var user = await _repo.GetUser(userId);
 
-        if (!user.Photos.Any(p => p.id == id)) 
+        if (!user.Photo.Any(p => p.Id == id)) 
         return Unauthorized();
 
         var photoFromRepo = await _repo.GetPhoto(id);
@@ -106,7 +105,7 @@ namespace LoveLife.API.Controllers
             return BadRequest("This is already the main photo");
 
         var currentPhoto = await _repo.GetMainPhotoForUser(userId);
-        currentMainPhoto.IsMain = false;
+        currentPhoto.IsMain = false;
 
         photoFromRepo.IsMain = true;
 
@@ -117,4 +116,6 @@ namespace LoveLife.API.Controllers
         return BadRequest("Could not set photo to main");
     }
 
+    }
+    
 }

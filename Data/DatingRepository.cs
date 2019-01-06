@@ -9,7 +9,7 @@ namespace LoveLife.API.Data
     public class DatingRepository : IDatingRepository
     {
         private readonly DataContext _context;
-
+    
         public DatingRepository(DataContext context)
         {
             _context = context;
@@ -32,8 +32,9 @@ namespace LoveLife.API.Data
 
         public async Task<Photos> GetMainPhotoForUser(int UserId)
         {
-           return  = await _context.Photo.Where(u = UserId).FirstOrDefaultAsync(p => p.IsMain);
-          // return photo;
+
+           return  await _context.Photo.Where(u => u.UserId == UserId).FirstOrDefaultAsync(p => p.IsMain);
+            //return photo;
         }
 
         public async Task<User> GetUser(int id)

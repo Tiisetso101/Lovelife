@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using AutoMapper;
 
 namespace LoveLife.API.Controllers
 {
@@ -18,9 +19,12 @@ namespace LoveLife.API.Controllers
     {
         public IAuthRepository _Repo { get; }
         public IConfiguration _Iconfig { get; }
-        public AuthController(IAuthRepository repo, IConfiguration iconfig)
+        public IMapper _Mapper { get; }
+
+        public AuthController(IAuthRepository repo, IConfiguration iconfig, IMapper mapper)
         {
             _Iconfig = iconfig;
+            _Mapper = mapper;
             _Repo = repo;
 
         }
@@ -73,10 +77,11 @@ namespace LoveLife.API.Controllers
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDesriptor);
-
+            var user = _Mapper.Map<UserForListDto>(userFromRepo);
 
             return Ok(new{
-                token = tokenHandler.WriteToken(token)
+                token = tokenHandler.WriteToken(token),
+                user
             });
         }
     }

@@ -17,7 +17,7 @@ namespace LoveLife.API.Data
         }
         public async Task<User> Login(string username, string password)
         {
-           var user = await _Context.Users.FirstOrDefaultAsync(x => x.UserName == username);
+           var user = await _Context.Users.Include(p => p.Photo).FirstOrDefaultAsync(x => x.UserName == username);
            if(user == null)
            return null;
 
