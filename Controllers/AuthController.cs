@@ -38,15 +38,12 @@ namespace LoveLife.API.Controllers
             if (await _Repo.UserExists(userForResisterDto.username))
                 return BadRequest("User name already exists!");
 
-            var userTocreate = new User()
-            {
-                UserName = userForResisterDto.username
-            };
+            var userTocreate = _Mapper.Map<User>(userForResisterDto);
 
             var createdUser = await _Repo.Register(userTocreate, userForResisterDto.password);
 
-
-            return StatusCode(201);
+            var userToReturn = _Mapper.Map<UserForDetailedDto>(createdUser);
+            return CreatedAtRoute("GetUser", new {controller = "Users", id = createdUser.Id}, userToReturn);
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
