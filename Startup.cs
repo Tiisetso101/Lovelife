@@ -59,6 +59,7 @@ namespace loveLife.API
                             ValidateAudience = false
                         };
                     });
+                    services.AddScoped<LogUserAcivity>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

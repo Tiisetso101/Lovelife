@@ -6,10 +6,12 @@ using AutoMapper;
 using LoveLife.API.Data;
 using LoveLife.API.Data.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using LoveLife.API.Controllers.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoveLife.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
