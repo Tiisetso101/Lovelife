@@ -8,10 +8,11 @@ using LoveLife.API.Data.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using LoveLife.API.Controllers.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using LoveLife.API.Models;
 
 namespace LoveLife.API.Controllers
 {
-    [ServiceFilter(typeof(LogUserActivity))]
+    [ServiceFilter(typeof(LogUserAcivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -26,10 +27,17 @@ namespace LoveLife.API.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await _repo.GetUsers();
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userFromRepo = await _repo.GetUser(currentUserId);
+            var users = await _repo.GetUsers(userParams);
             var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+            userParams.UserId = currentUserId;
+            if(string.IsNullOrEmpty(userParams.Gender))
+            {
+                userParams.Gender = userFromRepo.Gender == "male" ? "female":"male";
+            }
             return Ok(usersToReturn);
         }
 
@@ -38,6 +46,13 @@ namespace LoveLife.API.Controllers
         {
             var user = await _repo.GetUser(id);
             var userToReturn  = _mapper.Map<UserForDetailedDto>(user);
+          //  userParams.UserId = 
+
+           // Response.AddPagination(users.CurrentPage, users.PageSize,
+             //User, User.TotalPages);
+
+             Response.AddPadinationHeader(user.CurrentPage,user.ItemsPerPage,user.TotalItems , user.TotalPages);
+
             return Ok(userToReturn);
         }
         [HttpPut("{id}")]
@@ -54,5 +69,32 @@ namespace LoveLife.API.Controllers
 
             throw new Exception("$Updating user {id} failed on save"); 
         }
+        [HttpPost("{id}/like/{recipientId}")]
+        public async Task <IActionResult> LikeUser(int id, int recipientId)
+        {
+            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var like = await _repo.GetLike(id, recipientId);
+
+            if(like != null)
+             return BadRequest("You like this user already");
+             
+            if(await _repo.GetUser(recipientId) == null)
+             return NotFound();
+
+            like = new Like
+            {
+                LikerId = id,
+                LikeeId = recipientId
+            };
+
+           _repo.add<Like>(like);
+            if(await _repo.SaveAll())
+                return Ok();
+
+            return BadRequest("Could not like user");
+        }
+
     }
 }

@@ -35,6 +35,20 @@ namespace LoveLife.API.Models
 
         public ICollection <Photos> Photo { get; set; }
 
+        public ICollection <Like>Liker { get; set; }
+        
+        public ICollection <Like> Likees { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int CurrentPage { get; set; }
+
+        public int TotalPages { get; set; }
+
+        public int ItemsPerPage { get; set; }
+
+        public int TotalItems { get; set; }
+
 
     }
 }

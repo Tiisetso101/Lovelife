@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LoveLife.API.Controllers.Helpers;
 using LoveLife.API.Models;
 
 namespace LoveLife.API.Data
@@ -12,11 +13,13 @@ namespace LoveLife.API.Data
 
          Task <bool>  SaveAll();
 
-         Task <IEnumerable <User>> GetUsers();
+         Task <PagedList <User>> GetUsers(UserParams userParams);
          
          Task <User> GetUser(int id); 
          Task <Photos> GetPhoto(int id);
          Task <Photos> GetMainPhotoForUser(int UserId);
+
+         Task<Like> GetLike(int userID, int recipientID);
         
     }
 }
