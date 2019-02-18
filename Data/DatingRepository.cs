@@ -57,6 +57,19 @@ namespace LoveLife.API.Data
             .OrderByDescending(u => u.LastActive).AsQueryable();
             users = users.Where(u => u.Id != userParams.UserId);
             users = users.Where(u => u.Gender == userParams.Gender);
+
+            if(userParams.Likees)
+            {
+                var userLikees = await GetUserLikes(userParams.UserId, userParams.Likers);
+                users = users.Where(u => userLikees.Contains(u.Id));
+            }
+
+            if(userParams.Likers)
+            {
+                var userLikers = await GetUserLikes(userParams.UserId, userParams.Likers);
+                users = users.Where(u => userLikers.Contains(u.Id));
+            }
+
             if(userParams.minAge != 18 || userParams.maxage != 99)
             {
                 var minDOB = DateTime.Today.AddYears(-userParams.maxage -1);
@@ -79,6 +92,23 @@ namespace LoveLife.API.Data
             
             return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.pageSize);
 
+        }
+
+        private async Task<IEnumerable<int>> GetUserLikes (int id, bool likers)
+        {
+            var user = await _context.Users
+            .Include(x => x.Liker)
+            .Include(x => x.Likees)
+            .FirstOrDefaultAsync(u => id == u.Id);
+
+            if(likers)
+            {
+                return user.Liker.Where(u => u.LikeeId == id).Select(i => i.LikerId);
+            }
+            else
+            {
+                return user.Likees.Where(u => u.LikerId == id).Select(i => i.LikeeId);
+            }
         }
 
         public async Task<bool> SaveAll()
