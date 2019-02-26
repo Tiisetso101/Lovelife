@@ -39,6 +39,10 @@ namespace LoveLife.API.Models
         
         public ICollection <Like> Likees { get; set; }
 
+        public ICollection <Message> MessagesSent { get; set; }
+
+        public ICollection<Message> MessageReceived { get; set; }
+
         public int PageSize { get; set; }
 
         public int CurrentPage { get; set; }
