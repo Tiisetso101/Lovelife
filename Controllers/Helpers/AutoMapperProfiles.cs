@@ -24,7 +24,7 @@ namespace LoveLife.API.Controllers.Helpers
             CreateMap<Photos, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photos>();
             CreateMap<UserForRegisterDto, User>();
-            
+            CreateMap<DefaultMemberMap, Message>().ReverseMap();
         }
     }
 }
